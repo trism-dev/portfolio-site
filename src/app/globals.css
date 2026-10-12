@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+
+:root {
+  --bg: #f8fafc; --head: #0f172a; --fg: #475569; --line: #cbd5e1; --accent: #0f766e; --accent-fg: #f8fafc;
+  --chip: #ccfbf1; --chip-fg: #115e59;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0f172a; --head: #e2e8f0; --fg: #94a3b8; --line: #334155; --accent: #5eead4; --accent-fg: #0f172a;
+    --chip: rgb(45 212 191 / 0.1); --chip-fg: #5eead4; color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --bg: #0f172a; --head: #e2e8f0; --fg: #94a3b8; --line: #334155; --accent: #5eead4; --accent-fg: #0f172a;
+  --chip: rgb(45 212 191 / 0.1); --chip-fg: #5eead4; color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-head: var(--head);
+  --color-fg: var(--fg);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-chip: var(--chip);
+  --color-chip-fg: var(--chip-fg);
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-sans); line-height: 1.6; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+
+/* Markdown body (About, experience bullets, project pages) */
+.md p { margin-bottom: 1rem; }
+.md ul { list-style: disc; padding-left: 1.1rem; }
+.md li { margin-bottom: 0.4rem; }
+.md h2 { color: var(--head); font-size: 1.1rem; font-weight: 600; margin: 2.5rem 0 0.75rem; }
+.md a { color: var(--head); font-weight: 500; border-bottom: 1px solid var(--accent); }
+.md a:hover { color: var(--accent); }
