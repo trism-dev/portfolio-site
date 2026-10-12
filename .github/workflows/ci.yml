@@ -1,0 +1,26 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run check        # tsc + eslint
+      - run: npm run check:content
+      - run: npm test
+      # Dev build in CI so placeholders don't block PRs; the strict build runs on Vercel.
+      - run: npm run build:dev
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --offline --root-dir "$(pwd)/out" './out/**/*.html'
+          fail: true
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --max-retries 2 --accept 200,403,429 --exclude '\{\{' --exclude 'localhost' './out/**/*.html'
+          fail: true
