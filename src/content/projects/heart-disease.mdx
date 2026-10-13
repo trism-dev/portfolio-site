@@ -1,34 +1,85 @@
 ---
 title: Heart Disease Prediction System
-tagline: A screening classifier tuned for recall, with out-of-fold thresholds and bootstrap confidence intervals.
+tagline: A screening classifier tuned for recall, with out-of-fold thresholds, bootstrap confidence intervals, and a check on other hospitals' data.
 status: in-progress
 dates: "2026"
 order: 1
 featured: true
 stack: [Python, scikit-learn, XGBoost, Streamlit, PostgreSQL, Docker, pytest]
 repoUrl: https://github.com/trism-dev/heart-disease-prediction
-heroMetric: { value: '0.964', label: 'test recall (27 of 28)' }
+heroMetric: { value: '0.964', label: 'test recall (27 of 28 sick patients caught)' }
 architectureDiagram: heart-disease.svg
-diagramAlt: Patient features flow through preprocessing and a logistic regression model to a Streamlit app, with Postgres in Docker.
+diagramAlt: The UCI Cleveland file is ingested and validated into PostgreSQL, split and cross-validated across three models, given a recall-based threshold and a single test evaluation, then served as a frozen sklearn pipeline in Streamlit, with pytest covering every stage.
 ---
 
 ## Problem
-\{\{TODO\}\}
+
+In a screening setting, missing a sick patient costs far more than a false alarm. I wanted a classifier that is judged on recall first, and an evaluation that says how much to trust the number.
+
+The data is the UCI Cleveland set: 303 patients, 13 features, one clinic, 1980s records. This is an educational demo, not a diagnostic tool.
 
 ## What I built
-\{\{TODO\}\}
+
+- **Ingest.** The raw UCI file loads into PostgreSQL. The load is idempotent and tied to a hash of the data, and `?` becomes NULL.
+- **Split and preprocessing.** A stratified 80/20 split happens before anything is fit (242 train, 61 test). Imputing, scaling and one-hot encoding live inside one saved scikit-learn pipeline, so the app never re-implements them.
+- **Three models.** Logistic regression, random forest and XGBoost, tuned with 5-fold stratified cross-validation on the training rows only.
+- **Threshold and evaluation.** The cut-off is picked on out-of-fold predictions. The test set is used once, with 1,000-resample bootstrap confidence intervals.
+- **App and records.** A Streamlit form scores a patient with the winning model. Every training run is recorded in PostgreSQL with its parameters, metrics and data hash.
+- **Tests.** 22 pytest tests, including one that fails if the label direction flips.
 
 ## Architecture
-\{\{TODO\}\}
+
+<Diagram />
+
+Everything after ingest reads from Postgres, not the CSV. Model files stay on disk and only their path is stored in the database.
 
 ## Key decisions
-\{\{TODO\}\}
+
+### 1. Judge on recall, and choose the threshold out of fold
+
+- **Alternative:** accuracy, or the default 0.5 cut-off.
+- **Why not:** a model can look fine at 0.5 and still miss patients. I took the highest threshold that keeps recall at or above 0.90 on out-of-fold training predictions, so the test set never influences it.
+- **Limit:** bootstrapping that choice gives a 90% band of 0.22 to 0.39, so the threshold is not a sharp number.
+
+### 2. Ship logistic regression
+
+- **Alternative:** random forest or XGBoost.
+- **Rule I set up front:** a tree model ships only if its precision at recall of at least 0.90 beats logistic regression's by more than one standard deviation, measured over 5x5 repeated cross-validation. Ties go to the simpler model.
+- **Outcome:** logistic regression scored 0.705 ± 0.023, random forest 0.653 and XGBoost 0.655. The simpler model won on its own terms.
+
+### 3. Use the UCI file, not the popular Kaggle copy
+
+- **Alternative:** the Kaggle `heart.csv` most tutorials use.
+- **Why not:** it has an inverted target (1 means healthy), hides missing values as fake codes, and one 1,025-row copy repeats the same patients, which leaks test rows into training. That is where many published 95%+ accuracies come from.
+- **Guard:** a test fails if the label direction flips, and test accuracy above 0.92 triggers a leakage check.
+
+### 4. Split first, and use the test set once
+
+Nothing is fit on the full dataset, and model and threshold choices use cross-validation on training rows only. With 61 test rows, I want that test to mean something.
 
 ## Results
-\{\{TODO\}\}
+
+On the held-out test set (61 patients, 28 with disease), the shipped model at its chosen threshold:
+
+| Metric | Value |
+| --- | --- |
+| Recall | 0.964 (95% CI 0.88 to 1.00), 27 of 28 caught, 1 missed |
+| Precision | 0.730 (95% CI 0.59 to 0.87), 10 false alarms |
+| ROC-AUC | 0.959 |
+
+Read these with the uncertainty in mind. One missed patient moves recall by about 3.6 points, and the three models' recall intervals overlap, so on this test set they are effectively tied. Cross-validation, not the test set, is what separated them.
 
 ## What didn't work
-\{\{TODO\}\}
+
+- **Recall did not carry over to other hospitals.** I ran the frozen model on the three other UCI sites (617 patients, none used for training or tuning). Pooled recall was 0.70 (0.74 Hungarian, 0.80 Swiss, 0.60 Long Beach VA), against 0.96 on Cleveland. The other sites are also missing `ca`, the model's second-strongest feature, in 98% of rows, so this is a stress test and not a clean benchmark.
+- **The model is weaker for women.** In cross-validation, recall is 0.78 for women and 0.93 for men. The training data has only 18 sick women. One global threshold hides that gap.
+- **Favoring recall costs precision.** At the 0.90 target, 40 of 131 healthy training patients are flagged. At a 0.95 target it is 60.
+- **My first XGBoost search was overconfident.** It produced a threshold of 0.03. Narrowing the search space fixed it.
+- **The sample is small.** 303 patients from one clinic limits how far any of this generalizes. The displayed risk score is also calibrated to Cleveland's 46% disease rate only, so it would be off in a population with a different rate.
 
 ## What I'd do next
-\{\{TODO\}\}
+
+- Deploy the Streamlit app so there is a live demo to link here.
+- Look at a separate threshold for women, and check whether more data closes the recall gap.
+- Handle missing `ca` and `thal` explicitly instead of filling them with the most common Cleveland value.
+- Calibrate per site before drawing any conclusion about transfer.

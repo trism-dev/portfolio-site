@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 290" width="560" height="290" font-family="var(--font-inter), system-ui, sans-serif" font-size="13">
+  <defs>
+    <marker id="hd-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="var(--accent)"/></marker>
+  </defs>
+  <g fill="var(--bg)" stroke="var(--line)" stroke-width="1.5">
+    <rect x="1" y="8" width="158" height="68" rx="6"/>
+    <rect x="201" y="8" width="158" height="68" rx="6"/>
+    <rect x="401" y="8" width="158" height="68" rx="6"/>
+    <rect x="401" y="118" width="158" height="68" rx="6"/>
+    <rect x="201" y="118" width="158" height="68" rx="6"/>
+    <rect x="1" y="118" width="158" height="68" rx="6"/>
+  </g>
+  <g fill="none" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#hd-arrow)">
+    <path d="M159 42h40"/><path d="M359 42h40"/>
+    <path d="M480 76v40"/>
+    <path d="M401 152h-40"/><path d="M201 152h-40"/>
+  </g>
+  <g text-anchor="middle" fill="var(--head)" font-weight="600">
+    <text x="80" y="38">UCI Cleveland</text>
+    <text x="280" y="38">Ingest + validate</text>
+    <text x="480" y="38">PostgreSQL</text>
+    <text x="480" y="148">Split + CV tune</text>
+    <text x="280" y="148">Threshold + test</text>
+    <text x="80" y="148">Streamlit app</text>
+  </g>
+  <g text-anchor="middle" fill="var(--fg)" font-size="11.5">
+    <text x="80" y="58">303 patients</text>
+    <text x="280" y="58">idempotent load</text>
+    <text x="480" y="58">patients_raw, model_runs</text>
+    <text x="480" y="168">LR, RF, XGBoost</text>
+    <text x="280" y="168">OOF threshold, test once</text>
+    <text x="80" y="168">frozen sklearn pipeline</text>
+  </g>
+  <rect x="1" y="224" width="558" height="52" rx="6" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <g text-anchor="middle" fill="var(--fg)" font-size="12">
+    <text x="280" y="246">pytest across every stage:</text>
+    <text x="280" y="264">label direction, schema, leakage, preprocessing, inference, DB</text>
+  </g>
+</svg>
