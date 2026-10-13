@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import Link from 'next/link';
 import { config } from '@/config';
@@ -26,6 +28,9 @@ const links: { name: IconName; label: string; href: string }[] = [
   { name: 'email', label: 'Email', href: `mailto:${config.email}` },
 ];
 
+const hasResume = existsSync(join(process.cwd(), 'public', 'resume.pdf'));
+// Pending URLs stay in the markup for the strict placeholder guard, without becoming broken links.
+
 // Applies the saved theme before first paint to avoid a flash.
 const themeScript = "try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}";
 
@@ -50,7 +55,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
             <div className="mt-8 flex items-center gap-5 lg:mt-0">
               <ul className="flex items-center gap-1">
-                {links.map((l) => (
+                {links.map((l) => l.href.includes('{{') || (l.name === 'resume' && !hasResume) ? (
+                  <li key={l.name}>
+                    <span
+                      aria-label={`${l.label} (not yet available)`}
+                      aria-disabled="true"
+                      title={`${l.label} (not yet available)`}
+                      data-pending-url={l.href.includes('{{') ? l.href : undefined}
+                      className="flex h-11 w-11 items-center justify-center text-fg opacity-50"
+                    >
+                      <Icon name={l.name} />
+                    </span>
+                  </li>
+                ) : (
                   <li key={l.name}>
                     <a
                       href={l.href}
