@@ -39,5 +39,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .md ul { list-style: disc; padding-left: 1.1rem; }
 .md li { margin-bottom: 0.4rem; }
 .md h2 { color: var(--head); font-size: 1.1rem; font-weight: 600; margin: 2.5rem 0 0.75rem; }
+.md h3 { color: var(--head); font-weight: 600; margin: 1.5rem 0 0.5rem; }
+.md strong { color: var(--head); font-weight: 600; }
+.md ol { list-style: decimal; padding-left: 1.25rem; }
+.md table { display: block; overflow-x: auto; width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 1rem 0; }
+.md th, .md td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.md th { color: var(--head); font-weight: 600; }
 .md a { color: var(--head); font-weight: 500; border-bottom: 1px solid var(--accent); }
 .md a:hover { color: var(--accent); }
