@@ -22,6 +22,8 @@ jobs:
           fail: true
       - uses: lycheeverse/lychee-action@v2
         with:
-          # Check internal paths against this build; the provisional deployment and private source repo are not public targets yet.
-          args: --no-progress --root-dir "$(pwd)/out" --max-retries 2 --accept 200,403,429 --exclude '\{\{' --exclude 'localhost' --exclude '^https://portfolio-site\.vercel\.app/' --exclude '^https://github\.com/trism-dev/portfolio-site/?$' './out/**/*.html'
+          # Internal paths use this build; LinkedIn blocks bots, Streamlit uses 303 redirects, and the hosting URL is provisional.
+          args: --no-progress --root-dir "$(pwd)/out" --max-retries 2 --accept 200,303,403,429 --exclude '\{\{' --exclude 'localhost' --exclude '^https://www\.linkedin\.com/in/tristan-morton/? --exclude '^https://portfolio-site\.vercel\.app/' --exclude '^https://github\.com/trism-dev/portfolio-site/?$' './out/**/*.html'
+          fail: true
+ --exclude '^https://portfolio-site\.vercel\.app/' --exclude '^https://github\.com/trism-dev/portfolio-site/?$' './out/**/*.html'
           fail: true
