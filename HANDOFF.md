@@ -23,3 +23,5 @@ Typecheck/lint, content validation, four tests and builds have passed during dev
 Production URL supplied by Tristan: https://portfolio-site-trism2.vercel.app/. Configured for canonicals/sitemap. Unauthenticated requests currently redirect to Vercel login; deployment protection must allow public production access. Resume remains deferred.
 
 Resume added: public/resume.pdf, exported from the user-supplied SWE DOCX with Word and visually checked on both pages. Original DOCX unchanged and not added to the repo. Theme toggle displays moon for dark and sun for light. Cursor gradient brightens dark mode and darkens light mode; touch/reduced-motion exclusions remain.
+
+Heart Disease Vercel migration: portfolio live-app link now points to https://heart-disease-prediction-alpha.vercel.app/. The app source is pushed to trism-dev/heart-disease-prediction, deploying vercel_app through the connected Vercel project. Medical blue/white UI, no cursor effect. Hosted parity checks passed for three examples and unknown ca/thal; invalid inputs rejected. 37 pytest tests collected; 34 non-DB tests pass. Original Streamlit app remains available.

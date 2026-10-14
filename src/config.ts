@@ -15,6 +15,6 @@ export const config = {
   // Demo/video URLs per project slug.
   // Empty or placeholder values hide the button.
   links: {
-    'heart-disease': { demoUrl: 'https://heart-disease-prediction-project-01.streamlit.app/', videoUrl: '' },
+    'heart-disease': { demoUrl: 'https://heart-disease-prediction-alpha.vercel.app/', videoUrl: '' },
   },
 } as const;
