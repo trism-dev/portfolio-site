@@ -6,7 +6,7 @@ import { join } from 'node:path';
 export function Diagram({ file, alt }: { file: string; alt: string }) {
   const svg = readFileSync(join(process.cwd(), 'src', 'diagrams', file), 'utf8');
   return (
-    <figure className="my-6 overflow-x-auto rounded-md border border-line p-4" role="img" aria-label={alt}>
+    <figure tabIndex={0} className="my-6 overflow-x-auto rounded-md border border-line p-4" role="img" aria-label={alt}>
       <div className="min-w-[440px]" aria-hidden="true" dangerouslySetInnerHTML={{ __html: svg }} />
     </figure>
   );

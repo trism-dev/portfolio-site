@@ -1,19 +1,14 @@
 @import 'tailwindcss';
 
 :root {
-  --bg: #f8fafc; --head: #0f172a; --fg: #475569; --line: #cbd5e1; --accent: #0f766e; --accent-fg: #f8fafc;
-  --chip: #ccfbf1; --chip-fg: #115e59;
+  --bg: #101f22; --head: #e1eeeb; --fg: #a2b7b6; --line: #30474a; --accent: #79d7c7; --accent-fg: #101f22;
+  --chip: rgb(121 215 199 / 0.09); --chip-fg: #8edbce; --glow: rgb(86 167 155 / 0.16);
+  color-scheme: dark;
+}
+:root[data-theme='light'] {
+  --bg: #edf3f1; --head: #183638; --fg: #496366; --line: #bccfcd; --accent: #17675f; --accent-fg: #f4f9f7;
+  --chip: #d4e9e3; --chip-fg: #245e56; --glow: rgb(93 171 155 / 0.12);
   color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --bg: #0f172a; --head: #e2e8f0; --fg: #94a3b8; --line: #334155; --accent: #5eead4; --accent-fg: #0f172a;
-    --chip: rgb(45 212 191 / 0.1); --chip-fg: #5eead4; color-scheme: dark;
-  }
-}
-:root[data-theme='dark'] {
-  --bg: #0f172a; --head: #e2e8f0; --fg: #94a3b8; --line: #334155; --accent: #5eead4; --accent-fg: #0f172a;
-  --chip: rgb(45 212 191 / 0.1); --chip-fg: #5eead4; color-scheme: dark;
 }
 
 @theme inline {
@@ -31,8 +26,39 @@
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body { background: var(--bg); color: var(--fg); font-family: var(--font-sans); line-height: 1.6; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+main { overflow-wrap: anywhere; }
+@media (min-width: 640px) {
+  html, body { height: 100%; overflow: hidden; }
+  .site-shell { display: flex; gap: 2rem; height: 100dvh; padding-block: 0; }
+  .site-shell .identity-panel { position: relative; top: auto; display: flex; flex: 0 0 40%; height: 100dvh; flex-direction: column; justify-content: space-between; padding-block: clamp(2rem, 8vh, 6rem); }
+  .identity-panel nav { margin-top: 2rem; }
+  .identity-panel nav ul { display: block; }
+  .site-shell main { flex: 1; width: auto; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; scroll-behavior: smooth; scrollbar-gutter: stable; padding: clamp(2rem, 8vh, 6rem) 1rem; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .identity-panel h1 { font-size: 2rem; }
+  .identity-panel > div > p { font-size: 1rem; }
+  .identity-panel > div:last-child { flex-wrap: wrap; gap: 0.5rem; }
+  .site-shell { gap: 1rem; }
+}
+@media (min-width: 1024px) and (max-height: 700px) {
+  .identity-panel { padding-block: 2rem; }
+  .identity-panel nav { margin-top: 1.5rem; }
+}
+.md { line-height: 1.75; }
+.md h2[id] { scroll-margin-top: 2rem; }
+figure svg { display: block; width: 100%; height: auto; }
+.portfolio-row { position: relative; min-width: 0; padding: 1.25rem 0; border-radius: 0.5rem; isolation: isolate; }
+.portfolio-row::before { content: ''; position: absolute; inset: 0 -1rem; z-index: -1; border-radius: inherit; background: transparent; transition: background-color 160ms ease; }
+.entry-title { transition: color 160ms ease; }
+.portfolio-row:focus-visible::before, .portfolio-row:focus-within::before { background: var(--chip); }
+.portfolio-row:focus-visible .entry-title, .portfolio-row:focus-within .entry-title { color: var(--accent); }
+@media (hover: hover) {
+  .portfolio-row:hover::before { background: var(--chip); }
+  .portfolio-row:hover .entry-title { color: var(--accent); }
+}
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
 
 /* Markdown body (About, experience bullets, project pages) */
 .md p { margin-bottom: 1rem; }
@@ -47,3 +73,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .md th { color: var(--head); font-weight: 600; }
 .md a { color: var(--head); font-weight: 500; border-bottom: 1px solid var(--accent); }
 .md a:hover { color: var(--accent); }
+
+body { isolation: isolate; }
+.site-shell { position: relative; z-index: 1; }
+.cursor-light { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; background: radial-gradient(550px circle at var(--light-x, 50%) var(--light-y, 50%), var(--glow), transparent 75%); transition: opacity 180ms ease; }
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .cursor-light { display: none; } }
