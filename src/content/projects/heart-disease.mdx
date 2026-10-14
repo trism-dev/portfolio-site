@@ -1,13 +1,16 @@
 ---
 title: Heart Disease Prediction System
-tagline: A screening classifier tuned for recall, with out-of-fold thresholds, bootstrap confidence intervals, and a check on other hospitals' data.
-status: in-progress
+kind: case-study
+tagline: A Python screening pipeline that compares three models, chooses a recall-focused threshold, and checks performance across hospitals.
+status: live
 dates: "2026"
 order: 1
 featured: true
-stack: [Python, scikit-learn, XGBoost, Streamlit, PostgreSQL, Docker, pytest]
+stack: [Python, SQL, Jupyter Notebook, PostgreSQL, scikit-learn, XGBoost, Streamlit, Docker, pytest]
 repoUrl: https://github.com/trism-dev/heart-disease-prediction
-heroMetric: { value: '0.964', label: 'test recall (27 of 28 sick patients caught)' }
+heroMetric: { value: '0.964', label: 'test recall · 95% CI 0.88–1.00 · 27 of 28 patients with disease caught' }
+summary: I built a reproducible pipeline from PostgreSQL ingestion to a saved logistic-regression model and a Streamlit interface. Model and threshold choices use training data only.
+limitation: This is an educational demo, not a diagnostic tool. The test set contains only 61 patients; pooled recall fell to 0.70 on other hospitals’ data.
 architectureDiagram: heart-disease.svg
 diagramAlt: The UCI Cleveland file is ingested and validated into PostgreSQL, split and cross-validated across three models, given a recall-based threshold and a single test evaluation, then served as a frozen sklearn pipeline in Streamlit, with pytest covering every stage.
 ---
@@ -76,10 +79,3 @@ Read these with the uncertainty in mind. One missed patient moves recall by abou
 - **Favoring recall costs precision.** At the 0.90 target, 40 of 131 healthy training patients are flagged. At a 0.95 target it is 60.
 - **My first XGBoost search was overconfident.** It produced a threshold of 0.03. Narrowing the search space fixed it.
 - **The sample is small.** 303 patients from one clinic limits how far any of this generalizes. The displayed risk score is also calibrated to Cleveland's 46% disease rate only, so it would be off in a population with a different rate.
-
-## What I'd do next
-
-- Deploy the Streamlit app so there is a live demo to link here.
-- Look at a separate threshold for women, and check whether more data closes the recall gap.
-- Handle missing `ca` and `thal` explicitly instead of filling them with the most common Cleveland value.
-- Calibrate per site before drawing any conclusion about transfer.
