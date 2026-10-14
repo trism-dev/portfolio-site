@@ -11,7 +11,7 @@ export const config = {
   siteRepo: 'https://github.com/trism-dev/portfolio-site',
   siteRepoPublic: true,
   // Swap for the custom domain once bought; used for canonical URLs, sitemap and OG.
-  siteUrl: 'https://portfolio-site.vercel.app',
+  siteUrl: 'https://portfolio-site-trism2.vercel.app',
   // Demo/video URLs per project slug.
   // Empty or placeholder values hide the button.
   links: {
