@@ -7,7 +7,7 @@
 }
 :root[data-theme='light'] {
   --bg: #edf3f1; --head: #183638; --fg: #496366; --line: #bccfcd; --accent: #17675f; --accent-fg: #f4f9f7;
-  --chip: #d4e9e3; --chip-fg: #245e56; --glow: rgb(24 54 56 / 0.12);
+  --chip: #d4e9e3; --chip-fg: #245e56; --glow: rgb(24 54 56 / 0.18);
   color-scheme: light;
 }
 
