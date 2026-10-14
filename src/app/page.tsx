@@ -1,4 +1,5 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import Image from 'next/image';
 import { config } from '@/config';
 import { getAbout, getExperience, getProjects } from '@/lib/content';
 
@@ -28,6 +29,7 @@ export default function Home() {
                 <h3 className="entry-title font-semibold leading-snug text-head">{data.title} <span className="font-normal">· {data.org}</span></h3>
                 <div className="md mt-3 text-sm"><MDXRemote source={body} /></div>
                 <Technologies stack={data.stack} />
+                {slug === 'formwork' && <a href="https://formworkgroup.co/" target="_blank" rel="noopener noreferrer" aria-label="Formwork website (opens in a new tab)" className="mt-5 inline-flex min-h-11 max-w-full items-center gap-3 rounded-md border border-line bg-[#fff8f2] px-4 py-3 text-[#101010] hover:border-accent hover:bg-white"><Image src="/formwork-logo.svg" alt="Formwork" width={273} height={33} className="h-auto w-36 max-w-full" /><span aria-hidden="true">↗</span></a>}
               </div>
             </li>
           ))}
