@@ -22,6 +22,6 @@ Heart Disease is first, with an Open live app button linking to its hosted Strea
 
 ## Before launch
 
-Public contact details are configured and Tristan approved the Formwork/Matter wording. Resume and production hosting URL are deferred; the config siteUrl remains provisional until hosting is selected. Supply the real public/resume.pdf and confirmed production URL before deploying. Pending contact icons are disabled but retain placeholder markers for the strict guard. Recreation title/dates are no longer launch inputs. The Heart demo is hosted separately on Streamlit. Repository publication and website deployment are separate steps.
+Public contact details are configured and Tristan approved the Formwork/Matter wording. The supplied resume is served at public/resume.pdf, and the production URL is https://portfolio-site-trism2.vercel.app. Replace public/resume.pdf to update the downloadable resume. Pending contact icons are disabled but retain placeholder markers for the strict guard. Recreation title/dates are no longer launch inputs. The Heart demo is hosted separately on Streamlit. Repository publication and website deployment are separate steps.
 
 The default palette is dark teal/gray with an optional light theme. At widths of 640px and above, the identity panel stays stationary and the content panel scrolls independently. Cursor lighting is decorative, ignores pointer interactions, and is disabled for touch and reduced-motion preferences.

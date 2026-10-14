@@ -21,3 +21,5 @@ Tristan authorized committing/pushing changes and making this repository public.
 Typecheck/lint, content validation, four tests and builds have passed during development. Final pre-publication checks are recorded in the chat. Earlier mobile Lighthouse on a gzip-compressed static preview scored home 97 performance and Heart 96, with 100 accessibility/best-practices/SEO on both; later layout/palette/cursor changes have not been re-audited. Responsive/browser checks verified separate desktop scrolling, section links and mobile overflow. Review hosted behavior after deployment.
 
 Production URL supplied by Tristan: https://portfolio-site-trism2.vercel.app/. Configured for canonicals/sitemap. Unauthenticated requests currently redirect to Vercel login; deployment protection must allow public production access. Resume remains deferred.
+
+Resume added: public/resume.pdf, exported from the user-supplied SWE DOCX with Word and visually checked on both pages. Original DOCX unchanged and not added to the repo. Theme toggle displays moon for dark and sun for light. Cursor gradient brightens dark mode and darkens light mode; touch/reduced-motion exclusions remain.
