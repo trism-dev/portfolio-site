@@ -7,7 +7,7 @@
 }
 :root[data-theme='light'] {
   --bg: #edf3f1; --head: #183638; --fg: #496366; --line: #bccfcd; --accent: #17675f; --accent-fg: #f4f9f7;
-  --chip: #d4e9e3; --chip-fg: #245e56; --glow: rgb(93 171 155 / 0.12);
+  --chip: #d4e9e3; --chip-fg: #245e56; --glow: rgb(24 54 56 / 0.12);
   color-scheme: light;
 }
 
@@ -25,6 +25,9 @@
 }
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+.theme-sun { display: none; }
+:root[data-theme='light'] .theme-moon { display: none; }
+:root[data-theme='light'] .theme-sun { display: block; }
 body { background: var(--bg); color: var(--fg); font-family: var(--font-sans); line-height: 1.6; }
 main { overflow-wrap: anywhere; }
 @media (min-width: 640px) {
