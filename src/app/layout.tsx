@@ -8,6 +8,7 @@ import { ActiveNav } from '@/components/ActiveNav';
 import { Icon, type IconName } from '@/components/Icon';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { CursorLight } from '@/components/CursorLight';
+import { EmailContact } from '@/components/EmailContact';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
@@ -73,14 +74,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </li>
                 ) : (
                   <li key={l.name}>
-                    <a
+                    {l.name === 'email' ? <><EmailContact /><noscript><a href={l.href} className="text-sm text-accent">{config.email}</a></noscript></> : <a
                       href={l.href}
                       aria-label={l.label}
                       title={l.label}
                       className="flex h-11 w-11 items-center justify-center text-fg hover:text-accent"
                     >
                       <Icon name={l.name} />
-                    </a>
+                    </a>}
                   </li>
                 ))}
               </ul>
