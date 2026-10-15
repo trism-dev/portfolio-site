@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(config.siteUrl),
   title: { default: `${config.name} | Software engineer`, template: `%s | ${config.name}` },
   description: config.description,
-  icons: { icon: '/favicon.svg' },
+  icons: { icon: { url: '/favicon.svg?v=2', type: 'image/svg+xml' } },
   alternates: { canonical: './' },
   openGraph: { type: 'website', siteName: config.name },
   twitter: { card: 'summary_large_image' },
