@@ -54,7 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <h1 className="text-4xl font-bold tracking-tight text-head sm:text-5xl">
                 <Link href="/">{config.name}</Link>
               </h1>
-              <p className="identity-tagline mt-3 font-medium text-head"><a href="https://www.jmu.edu/academics/undergraduate/majors/computer-information-systems.shtml" className="text-accent underline decoration-accent/50 underline-offset-4 hover:decoration-accent" title="Computer Information Systems major at JMU">CIS</a> major · <a href="https://www.jmu.edu/academics/undergraduate/minors/business-analytics.shtml" className="text-accent underline decoration-accent/50 underline-offset-4 hover:decoration-accent" title="Business Analytics minor at JMU">BSAN</a> minor @ James Madison University</p>
+              <p className="identity-tagline mt-3 font-medium text-head"><a href="https://www.jmu.edu/academics/undergraduate/majors/computer-information-systems.shtml" className="text-accent underline decoration-accent/50 underline-offset-4 hover:decoration-accent" title="Computer Information Systems major at JMU">CIS</a> major with a <a href="https://www.jmu.edu/academics/undergraduate/minors/business-analytics.shtml" className="text-accent underline decoration-accent/50 underline-offset-4 hover:decoration-accent" title="Business Analytics minor at JMU">BSAN</a> minor @ James Madison University</p>
               <ActiveNav />
             </div>
             <div className="mt-8 flex items-center gap-5 lg:mt-0">
