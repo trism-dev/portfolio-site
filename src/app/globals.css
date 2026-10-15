@@ -30,8 +30,6 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 :root[data-theme='light'] .theme-sun { display: block; }
 body { background: var(--bg); color: var(--fg); font-family: var(--font-sans); line-height: 1.6; }
 main { overflow-wrap: anywhere; }
-.identity-panel { container-type: inline-size; }
-.identity-panel .identity-tagline { font-size: clamp(0.5rem, 3.5cqi, 0.875rem); white-space: nowrap; }
 @media (min-width: 640px) {
   html, body { height: 100%; overflow: hidden; }
   .site-shell { display: flex; gap: 2rem; height: 100dvh; padding-block: 0; }
@@ -42,6 +40,7 @@ main { overflow-wrap: anywhere; }
 }
 @media (min-width: 640px) and (max-width: 1023px) {
   .identity-panel h1 { font-size: 2rem; }
+  .identity-panel > div > p { font-size: 1rem; }
   .identity-panel > div:last-child { flex-wrap: wrap; gap: 0.5rem; }
   .site-shell { gap: 1rem; }
 }
