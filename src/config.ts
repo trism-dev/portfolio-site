@@ -7,8 +7,8 @@ export const config = {
     'Tristan Morton: CIS student at James Madison University and aspiring software engineer building data and engineering projects.',
   email: 'tristanjmorton@gmail.com',
   linkedin: 'https://www.linkedin.com/in/tristan-morton',
-  github: 'https://github.com/trism-dev',
-  siteRepo: 'https://github.com/trism-dev/portfolio-site',
+  github: 'https://github.com/trism-prism',
+  siteRepo: 'https://github.com/trism-prism/portfolio-site',
   siteRepoPublic: true,
   // Swap for the custom domain once bought; used for canonical URLs, sitemap and OG.
   siteUrl: 'https://portfolio-site-trism2.vercel.app',
